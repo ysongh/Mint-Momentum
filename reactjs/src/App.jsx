@@ -1,13 +1,23 @@
 import { useState } from 'react'
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider, Text } from '@chakra-ui/react';
 
 function App() {
 
   return (
     <ChakraProvider>
-      <div>
-       <h1>Mint Momentum</h1>
-      </div>
+      <HashRouter>
+        <Routes>
+          <Route
+            path="/test"
+            element={
+              <h1>Test</h1>} />
+          <Route
+            path="/"
+            element={
+              <h1>Home</h1>} />
+        </Routes>
+      </HashRouter>
     </ChakraProvider>
   )
 }
