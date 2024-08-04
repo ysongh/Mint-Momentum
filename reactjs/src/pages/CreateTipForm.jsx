@@ -21,7 +21,7 @@ const CreateTipForm = ({ userSigner }) => {
     e.preventDefault();
     console.log('Submitting tip:', { tip });
 
-    const contract = new ethers.Contract("0x5FbDB2315678afecb367f032d93F642f64180aa3", Momentum.abi, userSigner);
+    const contract = new ethers.Contract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", Momentum.abi, userSigner);
 
     const transaction = await contract.createMotivationalTip(tip);
     const tx = await transaction.wait();

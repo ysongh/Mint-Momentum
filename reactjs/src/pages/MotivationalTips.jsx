@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Heading, Text, VStack, UnorderedList, ListItem, HStack, useToast } from '@chakra-ui/react';
+import { ethers } from 'ethers';
 
-const MotivationalTips = () => {
+import Momentum from '../artifacts/contracts/Momentum.sol/Momentum.json';
+
+const MotivationalTips = ({ userSigner }) => {
   const [isMinted, setIsMinted] = useState(false);
+  const [tips, setTips] = useState([]);
+  const [contract, setContract] = useState(null);
   const toast = useToast();
 
-  const tips = [
-    { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-    { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-    { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
-    { text: "Your time is limited, don't waste it living someone else's life.", author: "Steve Jobs" },
-    { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" }
-  ];
+  useEffect(() => {
+    if (userSigner) loadContract(userSigner);
+  }, [userSigner])
+
+  useEffect(() => {
+    if (contract) loadTips();
+  }, [contract])
+
+  const loadContract = (userSigner) => {
+    const newContract = new ethers.Contract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", Momentum.abi, userSigner);
+    setContract(newContract);
+  }
+
+  const loadTips = async () => {
+    const newTips = await contract.getMotivationalTips();
+    setTips(newTips);
+    console.log(newTips);
+  }
 
   const handleMint = () => {
     setIsMinted(true);
@@ -54,8 +70,8 @@ const MotivationalTips = () => {
                   <VStack align="stretch" spacing={2}>
                     <Text fontWeight="bold">"{tip.text}"</Text>
                     <HStack justify="space-between">
-                      <Text fontSize="sm" color="gray.600">- {tip.author}</Text>
-                      <Button size="sm" colorScheme="green" onClick={() => handleTip(tip.author)}>
+                      <Text fontSize="sm" color="gray.600">- {tip.owner}</Text>
+                      <Button size="sm" colorScheme="green" onClick={() => handleTip(tip.owner)}>
                         Tip Author
                       </Button>
                     </HStack>

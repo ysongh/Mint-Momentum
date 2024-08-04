@@ -4,7 +4,7 @@ pragma solidity ^0.8.23;
 contract Momentum {
     constructor(){}
 
-    MotivationalTip[] private motivationalTips;
+    MotivationalTip[] public motivationalTips;
 
     struct MotivationalTip {
         address owner;
