@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import Navbar from './components/layout/Navbar';
+import MotivationalTips from './pages/MotivationalTips';
 
 function App() {
   const [ethAddress, setETHAddress] = useState('');
@@ -15,9 +16,9 @@ function App() {
           setETHAddress={setETHAddress} />
         <Routes>
           <Route
-            path="/test"
+            path="/motivationaltips"
             element={
-              <h1>Test</h1>} />
+              <MotivationalTips />} />
           <Route
             path="/"
             element={
