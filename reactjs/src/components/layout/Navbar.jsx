@@ -23,6 +23,7 @@ function Navbar({ ethAddress, setETHAddress }) {
           </Box>
           <Link as={ReactLink} to="/">Home</Link>
           <Link as={ReactLink} to="/motivationaltips">Motivational Tips</Link>
+          <Link as={ReactLink} to="/create-tipform">Create Tip Form</Link>
           <Spacer />
           <Button onClick={connectMetamask}>
             {ethAddress ? ethAddress.slice(0, 5) + "..." + ethAddress.slice(37, 42) : 'Connect Wallet'}

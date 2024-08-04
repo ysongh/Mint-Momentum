@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import Navbar from './components/layout/Navbar';
 import MotivationalTips from './pages/MotivationalTips';
+import CreateTipForm from './pages/CreateTipForm';
 
 function App() {
   const [ethAddress, setETHAddress] = useState('');
@@ -19,6 +20,10 @@ function App() {
             path="/motivationaltips"
             element={
               <MotivationalTips />} />
+          <Route
+            path="/create-tipform"
+            element={
+              <CreateTipForm />} />
           <Route
             path="/"
             element={
