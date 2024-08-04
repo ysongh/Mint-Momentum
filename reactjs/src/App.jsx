@@ -21,7 +21,7 @@ function App() {
           <Route
             path="/motivationaltips"
             element={
-              <MotivationalTips userSigner={userSigner} />} />
+              <MotivationalTips ethAddress={ethAddress} userSigner={userSigner} />} />
           <Route
             path="/create-tipform"
             element={

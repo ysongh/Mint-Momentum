@@ -3,8 +3,9 @@ import { Box, Button, Heading, Text, VStack, UnorderedList, ListItem, HStack, us
 import { ethers } from 'ethers';
 
 import Momentum from '../artifacts/contracts/Momentum.sol/Momentum.json';
+import SimpleNFT from '../artifacts/contracts/SimpleNFT.sol/SimpleNFT.json';
 
-const MotivationalTips = ({ userSigner }) => {
+const MotivationalTips = ({ ethAddress, userSigner }) => {
   const [isMinted, setIsMinted] = useState(false);
   const [tips, setTips] = useState([]);
   const [contract, setContract] = useState(null);
@@ -29,7 +30,13 @@ const MotivationalTips = ({ userSigner }) => {
     console.log(newTips);
   }
 
-  const handleMint = () => {
+  const handleMint = async () => {
+    const nftcontract = new ethers.Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", SimpleNFT.abi, userSigner);
+
+    const transaction = await nftcontract.mint(ethAddress);
+    const tx = await transaction.wait();
+    console.log(tx);
+
     setIsMinted(true);
   };
 
