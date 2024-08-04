@@ -9,14 +9,23 @@ import {
   Heading,
   useToast
 } from '@chakra-ui/react';
+import { ethers } from 'ethers';
 
-const CreateTipForm = () => {
+import Momentum from '../artifacts/contracts/Momentum.sol/Momentum.json';
+
+const CreateTipForm = ({ userSigner }) => {
   const [tip, setTip] = useState('');
   const toast = useToast();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Submitting tip:', { tip });
+
+    const contract = new ethers.Contract("0x5FbDB2315678afecb367f032d93F642f64180aa3", Momentum.abi, userSigner);
+
+    const transaction = await contract.createMotivationalTip(tip);
+    const tx = await transaction.wait();
+    console.log(tx);
     
     // Show a success message
     toast({

@@ -2,7 +2,7 @@ import { Link as ReactLink } from 'react-router-dom';
 import { Container, Box, Flex, Heading, Spacer, Button, Link } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function Navbar({ ethAddress, setETHAddress }) {
+function Navbar({ ethAddress, setETHAddress, setUserSigner }) {
   const connectMetamask = async () => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     setETHAddress(accounts[0]);
@@ -10,6 +10,7 @@ function Navbar({ ethAddress, setETHAddress }) {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     console.log(signer);
+    setUserSigner(signer);
   }
 
   return (

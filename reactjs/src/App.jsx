@@ -8,13 +8,15 @@ import CreateTipForm from './pages/CreateTipForm';
 
 function App() {
   const [ethAddress, setETHAddress] = useState('');
+  const [userSigner, setUserSigner] = useState(null);
 
   return (
     <ChakraProvider>
       <HashRouter>
         <Navbar
           ethAddress={ethAddress}
-          setETHAddress={setETHAddress} />
+          setETHAddress={setETHAddress}
+          setUserSigner={setUserSigner} />
         <Routes>
           <Route
             path="/motivationaltips"
@@ -23,7 +25,7 @@ function App() {
           <Route
             path="/create-tipform"
             element={
-              <CreateTipForm />} />
+              <CreateTipForm userSigner={userSigner} />} />
           <Route
             path="/"
             element={
