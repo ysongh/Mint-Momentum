@@ -5,6 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import Navbar from './components/layout/Navbar';
 import MotivationalTips from './pages/MotivationalTips';
 import CreateTipForm from './pages/CreateTipForm';
+import Landing from './pages/Landing';
 
 function App() {
   const [ethAddress, setETHAddress] = useState('');
@@ -28,8 +29,7 @@ function App() {
               <CreateTipForm userSigner={userSigner} />} />
           <Route
             path="/"
-            element={
-              <h1>Home</h1>} />
+            element={<Landing />} />
         </Routes>
       </HashRouter>
     </ChakraProvider>

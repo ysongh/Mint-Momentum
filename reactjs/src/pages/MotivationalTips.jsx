@@ -54,7 +54,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
     <Box maxWidth="600px" margin="auto" padding={8}>
       <VStack spacing={6} align="stretch">
         <Heading as="h1" size="xl" textAlign="center">
-          MintMomentum
+          Mint Momentum
         </Heading>
         
         {!isMinted ? (
