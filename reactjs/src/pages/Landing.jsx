@@ -11,6 +11,7 @@ import {
   SimpleGrid,
   Icon,
 } from '@chakra-ui/react';
+import { FaRocket, FaCoins, FaUsers, FaChartLine } from 'react-icons/fa';
 
 const Feature = ({ icon, title, text }) => {
   return (
@@ -43,18 +44,22 @@ const Landing = () => {
           {/* Feature Section */}
           <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
             <Feature
+              icon={FaRocket}
               title="Share Inspiration"
               text="Post your motivational tips and inspire others"
             />
             <Feature
+              icon={FaCoins}
               title="Earn Rewards"
               text="Receive cryptocurrency tips for your contributions"
             />
             <Feature
+              icon={FaUsers}
               title="Join Community"
               text="Connect with like-minded individuals"
             />
             <Feature
+              icon={FaChartLine}
               title="Track Impact"
               text="See how your tips are motivating others"
             />
