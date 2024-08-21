@@ -9,6 +9,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
   const [isMinted, setIsMinted] = useState(false);
   const [tips, setTips] = useState([]);
   const [contract, setContract] = useState(null);
+  const [nftcontract, setNFTContract] = useState(null);
   const toast = useToast();
 
   useEffect(() => {
@@ -21,7 +22,9 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
 
   const loadContract = (userSigner) => {
     const newContract = new ethers.Contract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", Momentum.abi, userSigner);
+    const nftcontract = new ethers.Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", SimpleNFT.abi, userSigner);
     setContract(newContract);
+    setNFTContract(nftcontract);
   }
 
   const loadTips = async () => {
@@ -31,8 +34,6 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
   }
 
   const handleMint = async () => {
-    const nftcontract = new ethers.Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", SimpleNFT.abi, userSigner);
-
     const transaction = await nftcontract.mint(ethAddress);
     const tx = await transaction.wait();
     console.log(tx);
