@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -24,6 +25,8 @@ const Feature = ({ icon, title, text }) => {
 };
 
 const Landing = () => {
+  const changePage = useNavigate();
+
   return (
     <Box>
       <Container maxW="container.xl" py={20}>
@@ -36,7 +39,7 @@ const Landing = () => {
             <Text fontSize="xl" mb={8}>
               Inspire, Motivate, and Earn on the Blockchain
             </Text>
-            <Button size="lg" colorScheme="blue">
+            <Button size="lg" colorScheme="blue" onClick={() => changePage("/motivationaltips")}>
               Get Started
             </Button>
           </Box>
@@ -91,7 +94,7 @@ const Landing = () => {
             <Heading as="h2" size="xl" mb={4}>
               Ready to Start Your Journey?
             </Heading>
-            <Button size="lg" colorScheme="blue">
+            <Button size="lg" colorScheme="blue" onClick={() => changePage("/motivationaltips")}>
               Join MintMomentum Now
             </Button>
           </Box>
