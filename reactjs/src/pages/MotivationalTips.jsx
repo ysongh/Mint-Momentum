@@ -20,6 +20,10 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
     if (contract) loadTips();
   }, [contract])
 
+  useEffect(() => {
+    if (contract) hasNFT();
+  }, [contract])
+
   const loadContract = (userSigner) => {
     const newContract = new ethers.Contract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", Momentum.abi, userSigner);
     const nftcontract = new ethers.Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", SimpleNFT.abi, userSigner);
@@ -32,6 +36,14 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
     setTips(newTips);
     console.log(newTips);
   }
+
+  const hasNFT = async () => {
+    console.log(nftcontract)
+    const amount = await nftcontract.nftBalance();
+    console.log(amount);
+
+    setIsMinted(true);
+  };
 
   const handleMint = async () => {
     const transaction = await nftcontract.mint(ethAddress);

@@ -13,4 +13,8 @@ contract SimpleNFT is ERC721 {
         _mint(to, tokenId);
         return tokenId;
     }
+
+    function nftBalance() public view returns (uint256) {
+        return balanceOf(msg.sender);
+    }
 }
