@@ -29,11 +29,11 @@ app.get('/test', async (req, res) => {
       messages: [
         {
           role: 'system',
-          content: 'You are a fitness coach.'
+          content: 'You are a motivational coach.'
         },
         {
           role: 'user',
-          content: 'What is better for you, salad or pizza?'
+          content: 'I feeling lazy, need some motivational'
         }
       ],
       stream: false
@@ -42,6 +42,7 @@ app.get('/test', async (req, res) => {
     // Every SecretLLM response includes a cryptographic signature for verification
     console.log(`Signature: ${response.signature}`);
     console.log(`Response: ${response.choices[0].message.content}`);
+    res.json({ res: response.choices[0].message.content });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: error.message });
