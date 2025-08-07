@@ -42,7 +42,7 @@ app.get('/test', async (req, res) => {
     // Every SecretLLM response includes a cryptographic signature for verification
     console.log(`Signature: ${response.signature}`);
     console.log(`Response: ${response.choices[0].message.content}`);
-    res.json({ res: response.choices[0].message.content });
+    res.json({ data: response.choices[0].message.content });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: error.message });

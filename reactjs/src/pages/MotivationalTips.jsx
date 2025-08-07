@@ -9,6 +9,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
   const [isMinted, setIsMinted] = useState(false);
   const [tips, setTips] = useState([]);
   const [contract, setContract] = useState(null);
+  const [aiData, setaiData] = useState(null);
   const [nftcontract, setNFTContract] = useState(null);
   const toast = useToast();
 
@@ -63,12 +64,36 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
     });
   };
 
+  const askAI = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/test`);
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to fetch balance');
+      }
+      
+      console.log(result.data);
+      setaiData(result.data);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <Box maxWidth="600px" margin="auto" padding={8}>
       <VStack spacing={6} align="stretch">
         <Heading as="h1" size="xl" textAlign="center">
           Mint Momentum
         </Heading>
+
+        <Button size="sm" colorScheme="green" onClick={askAI}>
+          Ask AI
+        </Button>
+
+        <Text fontSize="lg" mb={4}>
+          {aiData}
+        </Text>
         
         {!isMinted ? (
           <Box textAlign="center">
