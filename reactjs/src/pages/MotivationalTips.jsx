@@ -27,8 +27,8 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
   }, [contract])
 
   const loadContract = (userSigner) => {
-    const newContract = new ethers.Contract("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512", Momentum.abi, userSigner);
-    const nftcontract = new ethers.Contract("0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0", SimpleNFT.abi, userSigner);
+    const newContract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS1, Momentum.abi, userSigner);
+    const nftcontract = new ethers.Contract(import.meta.env.VITE_CONTRACT_ADDRESS2, SimpleNFT.abi, userSigner);
     setContract(newContract);
     setNFTContract(nftcontract);
   }
@@ -69,7 +69,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
     try {
       setaiLoading(true);
 
-      const response = await fetch(`http://localhost:4000/test`);
+      const response = await fetch(`${import.meta.env.VITE_SERVERURL}/test`);
       const result = await response.json();
       
       if (!response.ok) {
