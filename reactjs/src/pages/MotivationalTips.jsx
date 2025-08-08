@@ -10,6 +10,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
   const [tips, setTips] = useState([]);
   const [contract, setContract] = useState(null);
   const [aiData, setaiData] = useState(null);
+  const [aiLoading, setaiLoading] = useState(false);
   const [nftcontract, setNFTContract] = useState(null);
   const toast = useToast();
 
@@ -66,6 +67,8 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
 
   const askAI = async () => {
     try {
+      setaiLoading(true);
+
       const response = await fetch(`http://localhost:4000/test`);
       const result = await response.json();
       
@@ -77,6 +80,8 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
       setaiData(result.data);
     } catch (err) {
       console.error(err.message);
+    } finally {
+       setaiLoading(false);
     }
   };
 
@@ -87,7 +92,7 @@ const MotivationalTips = ({ ethAddress, userSigner }) => {
           Mint Momentum
         </Heading>
 
-        <Button size="sm" colorScheme="green" onClick={askAI}>
+        <Button isLoading={aiLoading} size="sm" colorScheme="green" onClick={askAI}>
           Ask AI
         </Button>
 
