@@ -49,6 +49,33 @@ app.get('/test', async (req, res) => {
   }
 });
 
+app.post('/askai', async (req, res) => {
+  const prompt = req.body.prompt;
+
+  try {
+    const response = await client.chat.completions.create({
+      model: 'meta-llama/Llama-3.1-8B-Instruct',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a motivational coach.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      stream: false
+    });
+
+    console.log(`Response: ${response.choices[0].message.content}`);
+    res.json({ data: response.choices[0].message.content });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/', (req, res) => res.send('It Work'));
 
 // Error handling middleware

@@ -4,6 +4,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Text,
   Textarea,
   VStack,
   Heading,
@@ -12,11 +13,36 @@ import {
 
 const AskAI = () => {
   const [msg, setmsg] = useState('');
+  const [aiData, setaiData] = useState(null);
+  const [aiLoading, setaiLoading] = useState(false);
+
   const toast = useToast();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('Submitting tip:', { msg });
+    try {
+      setaiLoading(true);
+      e.preventDefault();
+      console.log('Submitting tip:', msg);
+
+      const response = await fetch(`${import.meta.env.VITE_SERVERURL}/askai`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({msg})
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setaiData(result.data);
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      setaiLoading(false);
+    }
   };
 
   return (
@@ -38,11 +64,15 @@ const AskAI = () => {
               />
             </FormControl>
 
-            <Button type="submit" colorScheme="blue" width="full">
+            <Button isLoading={aiLoading} type="submit" colorScheme="blue" width="full">
               Submit
             </Button>
           </VStack>
         </form>
+
+        <Text fontSize="lg" mb={4}>
+          {aiData}
+        </Text>
       </VStack>
     </Box>
   );
