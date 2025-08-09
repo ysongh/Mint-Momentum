@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import MotivationalTips from './pages/MotivationalTips';
 import CreateTipForm from './pages/CreateTipForm';
 import Landing from './pages/Landing';
+import AskAI from './pages/AskAI';
 
 function App() {
   const [ethAddress, setETHAddress] = useState('');
@@ -19,6 +20,10 @@ function App() {
           setETHAddress={setETHAddress}
           setUserSigner={setUserSigner} />
         <Routes>
+          <Route
+            path="/askai"
+            element={
+              <AskAI />} />
           <Route
             path="/motivationaltips"
             element={
