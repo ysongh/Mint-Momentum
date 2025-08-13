@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
+import { sdk } from '@farcaster/miniapp-sdk';
 
 import Navbar from './components/layout/Navbar';
 import MotivationalTips from './pages/MotivationalTips';
@@ -9,6 +10,10 @@ import Landing from './pages/Landing';
 import AskAI from './pages/AskAI';
 
 function App() {
+  useEffect(() => {
+    sdk.actions.ready();
+  }, []);
+
   const [ethAddress, setETHAddress] = useState('');
   const [userSigner, setUserSigner] = useState(null);
 
