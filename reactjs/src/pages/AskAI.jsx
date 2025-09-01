@@ -15,13 +15,16 @@ const AskAI = () => {
   const [msg, setmsg] = useState('');
   const [aiData, setaiData] = useState(null);
   const [aiLoading, setaiLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const toast = useToast();
 
   const handleSubmit = async (e) => {
     try {
       setaiLoading(true);
+      console.error(null);
       e.preventDefault();
+      
       console.log('Submitting tip:', msg);
 
       const response = await fetch(`${import.meta.env.VITE_SERVERURL}/askai`, {
@@ -40,6 +43,7 @@ const AskAI = () => {
       setaiData(result.data);
     } catch (err) {
       console.error(err.message);
+      setError(err.message);
     } finally {
       setaiLoading(false);
     }
@@ -69,6 +73,10 @@ const AskAI = () => {
             </Button>
           </VStack>
         </form>
+
+        <Text fontSize="lg" color="red" mb={2}>
+          {error}
+        </Text>
 
         <Text fontSize="lg" mb={4}>
           {aiData}
