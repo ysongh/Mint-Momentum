@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import pkg from 'body-parser';
-import OpenAI from 'openai';
+import { NilaiOpenAIClient, NilAuthInstance } from '@nillion/nilai-ts';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -11,11 +11,11 @@ const { json } = pkg;
 const app = express();
 const port = 4000;
 
-const client = new OpenAI({
-  baseURL: 'https://nilai-a779.nillion.network/v1',
-  apiKey: process.env.NILAI_API_KEY || 'YOUR_API_KEY_HERE'
-});
-
+ const client = new NilaiOpenAIClient({
+    baseURL: "https://nilai-a779.nillion.network/v1/",
+    apiKey: process.env.NILAI_API_KEY,
+    nilauthInstance: NilAuthInstance.SANDBOX,
+  });
 
 app.use(cors());
 
@@ -50,28 +50,20 @@ app.get('/test', async (req, res) => {
 });
 
 app.post('/askai', async (req, res) => {
-  const prompt = req.body.prompt;
+  const msg = req.body.msg;
 
   try {
     const response = await client.chat.completions.create({
-      model: 'meta-llama/Llama-3.1-8B-Instruct',
+      model: "google/gemma-3-27b-it",
       messages: [
-        {
-          role: 'system',
-          content: 'You are a motivational coach.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
+        { role: "user", content: msg }
       ],
-      stream: false
     });
 
     console.log(`Response: ${response.choices[0].message.content}`);
     res.json({ data: response.choices[0].message.content });
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error calling Nilai API:', error);
     res.status(500).json({ error: error.message });
   }
 });
