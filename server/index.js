@@ -24,6 +24,13 @@ app.use(json());
 
 app.get('/test', async (req, res) => {
   try {
+    console.log('API Key exists:', !!process.env.NILAI_API_KEY);
+    console.log('API Key prefix:', process.env.OPENAI_API_KEY?.substring(0, 10));
+
+    if (!process.env.NILAI_API_KEY) {
+      return res.status(500).json({ error: "NILAI_API_KEY is not configured" });
+    }
+
     const response = await client.chat.completions.create({
       model: 'meta-llama/Llama-3.1-8B-Instruct',
       messages: [
@@ -53,6 +60,10 @@ app.post('/askai', async (req, res) => {
   const msg = req.body.msg;
 
   try {
+    if (!process.env.NILAI_API_KEY) {
+      return res.status(500).json({ error: "NILAI_API_KEY is not configured" });
+    }
+
     const response = await client.chat.completions.create({
       model: "google/gemma-3-27b-it",
       messages: [
