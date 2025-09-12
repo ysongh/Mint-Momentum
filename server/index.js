@@ -56,7 +56,14 @@ app.post('/askai', async (req, res) => {
     const response = await client.chat.completions.create({
       model: "google/gemma-3-27b-it",
       messages: [
-        { role: "user", content: msg }
+        {
+          role: 'system',
+          content: 'You are a motivational coach.'
+        },
+        {
+          role: 'user',
+          content: msg
+        }
       ],
     });
 
