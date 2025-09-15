@@ -22,10 +22,19 @@ app.use(cors());
 // Middleware for parsing JSON bodies
 app.use(json());
 
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 app.get('/test', async (req, res) => {
   try {
     console.log('API Key exists:', !!process.env.NILAI_API_KEY);
-    console.log('API Key prefix:', process.env.OPENAI_API_KEY?.substring(0, 10));
+    console.log('API Key', process.env.NILAI_API_KEY?.substring(0, 10));
 
     if (!process.env.NILAI_API_KEY) {
       return res.status(500).json({ error: "NILAI_API_KEY is not configured" });
